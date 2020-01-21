@@ -65,8 +65,11 @@ def d_mean(a_list, places):
     to_dither = a_list
     a_mean = np.mean(to_dither)
     g_mean = gmean(to_dither)
+    counter = 0
     while round(a_mean, places) != round(g_mean, places):
         g_mean, a_mean, to_dither = dither(to_dither)
+        counter += 1
+    print("Converged within {} steps.".format(counter))
     return (g_mean, a_mean, sorted(to_dither))
 
 d_mean(trial, 3)

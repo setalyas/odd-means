@@ -22,7 +22,7 @@ def dither(a_list):
     Parameters
     ----------
     a_list : list
-        A list of numbers.
+        A list of positive numbers.
     
     Returns
     -------
@@ -33,12 +33,15 @@ def dither(a_list):
     dithered : list
         A copy of a_list, with the largest number replaced with the arithmetic
         mean, and the smallest number replaced with the geometric mean."""
+    if sum(np.array(a_list) > 0) != len(a_list):
+        raise Exception("Sorry, only positive number lists allowed.")
     a_mean = np.mean(a_list)
     g_mean = gmean(a_list)
     dithered = [g_mean] + sorted(a_list)[1:-1] + [a_mean]
     return (g_mean, a_mean, sorted(dithered))
 
 dither(trial)
+dither([1, -5])
 
 def d_mean(a_list, places):
     """Take a list one step towards the ditherer's mean.
